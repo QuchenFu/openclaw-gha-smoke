@@ -28,6 +28,7 @@ jobs:
           cat > ~/.openclaw/openclaw.json <<'EOF'
           {
             "gateway": {
+              "mode": "local",
               "auth": {
                 "mode": "token",
                 "token": "gha-smoke-token"
