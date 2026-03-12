@@ -2,17 +2,6 @@
 
 ## English
 
-A tiny macOS / OpenClaw self-heal test.
-
-### What it does
-
-This repo tests one thing:
-
-- stop OpenClaw Gateway
-- run the watchdog script
-- wait 15 seconds
-- check whether Gateway becomes healthy again
-
 ### How to use
 
 For beginners, this should be one sentence:
@@ -32,36 +21,9 @@ Step by step:
 4. Press Enter
 5. Check the logs and see whether it brought Gateway back
 
-### Files
-
-- `healthwatch-launchd-setup.sh` — the watchdog setup script
-- `.github/workflows/openclaw-smoke.yml` — the GitHub Actions test
-
-### Result
-
-If the final health check passes, then:
-
-**it came back**
-
-### License
-
-This repo uses **The Unlicense**.
-You can copy it, modify it, reuse it, or throw it into your own project with very little drama.
-
 ---
 
 ## 中文
-
-一个很小的 macOS / OpenClaw 自恢复测试。
-
-### 它干嘛
-
-这个仓库只测一件事：
-
-- 把 OpenClaw Gateway 停掉
-- 跑 watchdog 脚本
-- 等 15 秒
-- 看 Gateway 会不会重新恢复健康
 
 ### 怎么用
 
@@ -81,19 +43,3 @@ You can copy it, modify it, reuse it, or throw it into your own project with ver
 3. 粘贴进终端
 4. 回车运行
 5. 看日志确认有没有把 Gateway 拉起来
-
-### 文件
-
-- `healthwatch-launchd-setup.sh` —— watchdog 安装脚本
-- `.github/workflows/openclaw-smoke.yml` —— GitHub Actions 测试流程
-
-### 结果
-
-如果最后 health 检查通过，那就说明：
-
-**它自己活回来了。**
-
-### 许可证
-
-这个仓库使用 **The Unlicense**。
-基本就是完全放开，别人拿去复制、修改、复用都行。
