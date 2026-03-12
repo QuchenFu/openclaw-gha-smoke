@@ -38,6 +38,11 @@ If the final health check passes, then:
 
 **it came back**
 
+### License
+
+This repo uses **The Unlicense**.
+You can copy it, modify it, reuse it, or throw it into your own project with very little drama.
+
 ---
 
 ## 中文
@@ -77,3 +82,8 @@ bash healthwatch-launchd-setup.sh
 如果最后 health 检查通过，那就说明：
 
 **它自己活回来了。**
+
+### 许可证
+
+这个仓库使用 **The Unlicense**。
+基本就是完全放开，别人拿去复制、修改、复用都行。
