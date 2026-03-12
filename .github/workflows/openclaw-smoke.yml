@@ -11,6 +11,7 @@ jobs:
     timeout-minutes: 20
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      OPENCLAW_GATEWAY_TOKEN: gha-smoke-token
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,18 +22,38 @@ jobs:
           which openclaw
           openclaw --version
 
+      - name: Prepare cloud-safe config
+        run: |
+          mkdir -p ~/.openclaw
+          cat > ~/.openclaw/openclaw.json <<'EOF'
+          {
+            "gateway": {
+              "auth": {
+                "mode": "token",
+                "token": "gha-smoke-token"
+              }
+            },
+            "discovery": {
+              "mdns": {
+                "mode": "off"
+              }
+            }
+          }
+          EOF
+          cat ~/.openclaw/openclaw.json
+
       - name: Start Gateway
         run: |
-          nohup openclaw gateway run --allow-unconfigured --auth none --bind loopback --port 18789 > /tmp/openclaw-gateway.log 2>&1 &
+          nohup openclaw gateway run --allow-unconfigured --auth token --token "$OPENCLAW_GATEWAY_TOKEN" --bind loopback --port 18789 > /tmp/openclaw-gateway.log 2>&1 &
           echo $! > /tmp/openclaw-gateway.pid
           sleep 15
           tail -n 80 /tmp/openclaw-gateway.log || true
 
       - name: Gateway status and health
         run: |
-          openclaw gateway status --url ws://127.0.0.1:18789 --no-probe
-          openclaw gateway health --url ws://127.0.0.1:18789 --json
-          openclaw gateway call health --url ws://127.0.0.1:18789 --json
+          openclaw gateway status --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN" --no-probe
+          openclaw gateway health --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN" --json
+          openclaw gateway call health --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN" --json
 
       - name: Probe Telegram secret presence
         run: |
