@@ -1,0 +1,40 @@
+name: openclaw-smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install OpenClaw
+        run: npm install -g openclaw
+
+      - name: Verify OpenClaw CLI
+        run: |
+          openclaw --version
+          openclaw --help > /tmp/openclaw-help.txt
+          wc -l /tmp/openclaw-help.txt
+
+      - name: Probe Telegram secret presence
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "TELEGRAM_BOT_TOKEN_PRESENT=1"
+          else
+            echo "TELEGRAM_BOT_TOKEN_PRESENT=0"
+          fi
+
+      - name: Show channel add help
+        run: openclaw channels add --help | sed -n '1,120p'
