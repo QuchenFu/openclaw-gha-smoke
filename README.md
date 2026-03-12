@@ -192,26 +192,6 @@ That last part matters most.
 
 ---
 
-## Optional secret / 可选的 Secret
-
-**English**
-
-You can optionally set this GitHub Actions secret:
-
-- `TELEGRAM_BOT_TOKEN`
-
-This repo only checks whether it exists. It does not create a long-running Telegram bot service by itself.
-
-**中文**
-
-你可以选择性地设置这个 GitHub Actions secret：
-
-- `TELEGRAM_BOT_TOKEN`
-
-这个仓库只是检查它有没有存在，并不会自动把 GitHub Actions 变成一个长期运行的 Telegram bot 服务。
-
----
-
 ## Important notes / 重要说明
 
 **English**

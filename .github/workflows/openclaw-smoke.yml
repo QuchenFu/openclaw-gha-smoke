@@ -10,7 +10,6 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 20
     env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       OPENCLAW_GATEWAY_TOKEN: gha-smoke-token
     steps:
       - name: Checkout
@@ -77,14 +76,6 @@ jobs:
           openclaw gateway health --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN" --json
           echo "----- gateway call health -----"
           openclaw gateway call health --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN" --json
-
-      - name: Probe Telegram secret presence
-        run: |
-          if [ -n "$TELEGRAM_BOT_TOKEN" ]; then
-            echo "TELEGRAM_BOT_TOKEN_PRESENT=1"
-          else
-            echo "TELEGRAM_BOT_TOKEN_PRESENT=0"
-          fi
 
       - name: Show channel add help
         run: openclaw channels add --help | sed -n '1,120p'
