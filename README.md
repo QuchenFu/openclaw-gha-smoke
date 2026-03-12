@@ -1,14 +1,17 @@
 # openclaw-gha-smoke
 
-Minimal GitHub Actions smoke test for installing OpenClaw, checking the CLI, and preparing Telegram configuration via GitHub secrets.
+Minimal GitHub Actions smoke test for installing OpenClaw with the **official installer script** on **macOS**, starting the Gateway, and checking health.
 
 ## What this does
 
-- Installs Node 22
-- Installs OpenClaw globally with npm
+- Runs on `macos-latest`
+- Installs OpenClaw via the official installer script:
+  - `curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard`
 - Verifies `openclaw --version`
-- Runs a basic CLI probe (`openclaw --help`)
-- Optionally injects `TELEGRAM_BOT_TOKEN` from GitHub Actions secrets for later channel setup
+- Starts `openclaw gateway`
+- Runs `openclaw gateway status`
+- Runs `openclaw health`
+- Optionally checks whether `TELEGRAM_BOT_TOKEN` is present in GitHub Actions secrets
 
 ## Required GitHub secrets for Telegram
 
@@ -16,4 +19,4 @@ Minimal GitHub Actions smoke test for installing OpenClaw, checking the CLI, and
 
 ## Notes
 
-This workflow is only a smoke test scaffold. Actually connecting a Telegram bot also requires configuring channel settings and allowing the bot/account to message you.
+This repository verifies installation and basic Gateway startup/health in GitHub Actions. It does **not** provide a persistent Telegram bot runtime by itself, because GitHub Actions runners are ephemeral.
